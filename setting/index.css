@@ -1,0 +1,63 @@
+body {
+    width: 350px;
+    font-family: 苹方, 黑体;
+    font-size: 14px;
+    color: #777;
+    margin: 0px;
+}
+
+.title {
+    text-align: center;
+    background-color: #1d7dfa;
+    color: #fff;
+    padding: 6px 0px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.content{
+    padding: 12px;
+    box-sizing: border-box; 
+}
+
+.formItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+}
+ 
+.formItem>input, .formItem>select, .formItem>select>option, .formItem>textarea {
+    line-height: 32px;
+    height: 32px;
+    padding: 0px 12px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px; 
+}
+.formItem>textarea {
+    height: 100px;
+}
+.desc{
+    font-size: 12px;
+    color: red;
+    background-color: #efefef;
+    padding: 6px;
+}
+
+.btns {
+    text-align: right;
+    padding-top: 12px;
+}
+
+.btns button {
+    border: 1px solid #1d7dfa;
+    background: #1d7dfa;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}

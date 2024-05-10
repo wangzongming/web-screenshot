@@ -1,0 +1,56 @@
+<html lang="en">
+
+<head>
+    <title>测试扩展</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="title">用户设置</div>
+    <div class="content">
+        <div class="formItem">
+            <label for="isOpen">是否开启</label>
+            <div>
+                <input type="radio" name="close" id="close" checked="checked"><label for="close">关闭</label>
+                <input type="radio" name="open" id="open"><label for="open">启动</label>
+            </div>
+        </div>
+        <div class="formItem">
+            <label for="wrapPath">验证码Path</label>
+            <input type="text" id="wrapPath" value="verification-wrap">
+        </div>
+        <div class="formItem">
+            <label for="clickPath">存在就点Path</label>
+            <textarea id="clickPath" placeholder="用于在一些验证前会先确认是否进行验证的场景, 多个用 | 分割"></textarea>
+        </div>
+        <div class="formItem">
+            <label for="submit_path">提交按钮Path</label>
+            <input type="text" id="submit_path" value="submit">
+        </div>
+
+        <div class="formItem">
+            <label for="codeType">验证码类型</label>
+            <select id="codeType">
+                <option value="9101">坐标选一,返回格式:x,y </option>
+                <option value="9004">坐标多选,1~4个坐标,如:x1,y1|x2,y2|x3,y3</option>
+                <option value="9009">坐标多选,1~9个坐标,如:x1,y1|x2,y2|x3,y3</option>
+            </select>
+        </div>
+
+
+        <div class="formItem">
+            <label for="model">模式</label>
+            <select id="model">
+                <option value="default">普通模式</option>
+                <option value="debug">debug模式</option>
+            </select>
+        </div>
+        <div class="desc">Path 使用 css 选择器, 如： #sub>.button</div>
+        <div class="btns">
+            <button id="submit" type="button">保存</button>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>

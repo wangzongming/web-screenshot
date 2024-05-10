@@ -1,0 +1,54 @@
+{
+    "name": "DOM截图",
+    "version": "0.1",
+    "manifest_version": 3,
+    "description": "给页面中的dom截图~", 
+    "author": "1746809408@qq.com",
+    "icons": {
+        "16": "/icons/16.png",
+        "19": "/icons/19.png",
+        "38": "/icons/38.png",
+        "48": "/icons/48.png",
+        "128": "/icons/128.png"
+    },
+    "background": {
+        "service_worker": "service-worker.js"
+    },
+    "options_page": "setting/index.html",
+    "action": {
+        "default_icon": {
+            "16": "/icons/16.png",
+            "19": "/icons/19.png",
+            "38": "/icons/38.png",
+            "48": "/icons/48.png",
+            "128": "/icons/128.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "content.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "commands": {
+        "take-screenshot": {
+            "description": "Take Screenshot",
+            "suggested_key": {
+                "default": "Alt+D"
+            }
+        }
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "homepage_url": "https://github.com/wangzongming/screenshot-dom"
+}
