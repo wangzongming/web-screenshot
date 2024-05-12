@@ -1,10 +1,9 @@
 {
-    "name": "__MSG_pluginName__",
+    "name": "DOM截图",
     "version": "0.1",
     "manifest_version": 3,
-    "description": "__MSG_pluginDesc__", 
-    "author": "1746809408@qq.com", 
-	"default_locale": "zh_CN",
+    "description": "给页面中的dom截图~", 
+    "author": "1746809408@qq.com",
     "icons": {
         "16": "/icons/16.png",
         "19": "/icons/19.png",
@@ -15,7 +14,7 @@
     "background": {
         "service_worker": "service-worker.js"
     }, 
-    "action": { 
+    "action": {
         "default_popup": "./setting/index.html",
         "default_icon": {
             "16": "/icons/16.png",

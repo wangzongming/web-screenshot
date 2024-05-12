@@ -1,0 +1,18 @@
+{
+	"pluginName": {
+		"message": "web-screenshot"
+	},
+	"pluginDesc": {
+		"message": "给页面中的DOM或者任意区域截图~"
+	},
+	"test": {
+		"message": "你好$name$",
+		"description": "占位符测试",
+		"placeholders": {
+			"name": {
+				"content": "$1",
+				"example": "小明111"
+			}
+		}
+	}
+}

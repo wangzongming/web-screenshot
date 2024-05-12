@@ -157,6 +157,7 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
 })
 
 
-
+const text = chrome.i18n.getMessage("test", "小明");
+console.log('text', text)
 // const data = await chrome.storage.sync.get(["wrap_path", "submit_path", "is_open", "code_type", "model", "click_path"]);
 
