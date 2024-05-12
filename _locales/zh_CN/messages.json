@@ -5,14 +5,25 @@
 	"pluginDesc": {
 		"message": "给页面中的DOM或者任意区域截图~"
 	},
-	"test": {
-		"message": "你好$name$",
-		"description": "占位符测试",
-		"placeholders": {
-			"name": {
-				"content": "$1",
-				"example": "小明111"
-			}
-		}
+	"domScreenshotDesc":{ 
+		"message": "DOM 截图"
+	},
+	"areaScreenshotDesc":{ 
+		"message": "区域截图"
+	},
+	"modelLabel":{ 
+		"message": "保存为"
+	},
+	"modelOptionFile":{ 
+		"message": "文件"
+	},
+	"saveSuccessMsg":{ 
+		"message": "保存成功"
+	},
+	"msgTitle":{ 
+		"message": "提示"
+	},
+	"errorMsg":{
+		"message": "截图失败！请刷新页面或者重启浏览器尝试。"
 	}
 }

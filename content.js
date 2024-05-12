@@ -1,12 +1,11 @@
 
 // 聚焦 dom 的遮罩
 var maskDom = createMask();
-// 聚焦的dom类名
-var focusDomClass;
-// 鼠标是否按下状态
-var isMousedown = false;
 // 是否为选择模式，可以使用鼠标指针选择字段进行编辑,由平台程序改变 
 var isSelectModel = false;
+// 鼠标是否按下状态
+var isMousedown = false;
+var target = null;
 // 为防止页面上面有禁止冒泡的元素。所以使用 mouse 实现点击监听
 window.globalClickMouseDowned = null;
 window.globalClickDownTime = null;
@@ -17,75 +16,48 @@ document.addEventListener("mousedown", listenerMousedown);
 document.addEventListener("mouseup", listenerMouseup);
 document.addEventListener("mousemove", listenerMousemove);
 
+
 function listenerMousedown(event) {
     if (!isSelectModel) return;
-    isMousedown = true;
-    maskDom.style.display = "none"
-    // send({
-    //     type: "mouseDown",
-    //     event: {
-    //         which: event.which,
-    //         pageX: event.pageX,
-    //         pageY: event.pageY,
-    //         clientX: event.clientX,
-    //         clientY: event.clientY,
-    //         screenX: event.screenX,
-    //         screenY: event.screenY,
-    //     },
-    // });
+    target.style.pointerEvents = "none";
 
+    isMousedown = true;
     if (event.which === 1) {
         window.globalClickMouseDowned = true;
         window.globalClickDownTime = new Date().getTime();
     }
 };
 
-function listenerMouseup(event) {
+async function listenerMouseup(event) {
     if (!isSelectModel) return;
     isMousedown = false;
-    // send({
-    //     type: "_mouseup",
-    //     event: {
-    //         which: event.which,
-    //         pageX: event.pageX,
-    //         pageY: event.pageY,
-    //         clientX: event.clientX,
-    //         clientY: event.clientY,
-    //         screenX: event.screenX,
-    //         screenY: event.screenY,
-    //     },
-    // });
-    // console.log('event:', event);
+    target.style.pointerEvents = "auto";
+
+
+    // 点击某个 dom
     if (window.globalClickMouseDowned && event.which === 1) {
         window.globalClickMouseDowned = false;
         const now = new Date().getTime();
         if (now - window.globalClickDownTime < 300) {
+            const infos = {
+                x: parseInt(maskDom.style.left),
+                y: parseInt(maskDom.style.top),
+                w: parseInt(maskDom.style.width),
+                h: parseInt(maskDom.style.height)
+            };
+            // console.log('dom infos: ', infos);
+            // 返回整个屏幕截图
+            const screen_image = await chrome.runtime.sendMessage({ type: "screenshot" });
+            if (!screen_image.image) {
+                alert(chrome.i18n.getMessage('errorMsg'))
+                return;
+            }
+            const crop_image = await crop(screen_image.image, infos);
+            copy_img_to_clipboard(crop_image);
 
-            console.log('点击');
-
-            // const sendData = {
-            //     type: "_webviewClickCB",
-            //     event: {
-            //         pageX: event.pageX,
-            //         pageY: event.pageY,
-            //         path: event.path.map((item) => {
-            //             const datasetObj = item.dataset;
-            //             const dataset = {};
-            //             for (let key in datasetObj) {
-            //                 dataset[key] = datasetObj[key];
-            //             }
-            //             return {
-            //                 className: typeof item.className === "string" ? item.className : "",
-            //                 dataset: dataset,
-            //             };
-            //         }),
-            //         target: {
-            //             className: typeof event.target.className === "string" ? event.target.className : "",
-            //             childNodes: getChildNodes(event.target.childNodes),
-            //         },
-            //     },
-            // };
-            // send(sendData);
+            // 关闭 选择模式
+            isSelectModel = false;
+            maskDom.style.display = "none";
         }
     }
 };
@@ -99,7 +71,8 @@ function listenerMousemove(event) {
         // 拿到鼠标移入的元素集合
         const paths = document.elementsFromPoint(event.x, event.y);
         // 这里取第一个就行
-        const target = paths[0];
+        target = paths[0];
+        // console.log("target:", target);
         if (target) {
             // 拿到元素的坐标信息
             const targetDomInfo = target.getBoundingClientRect();
@@ -113,51 +86,139 @@ function listenerMousemove(event) {
         } else {
             maskDom.style.display = "none";
         }
-
-        console.log("target:", target);
     }
-
-    // send({
-    //     type: "_mousemove",
-    //     event: {
-    //         which: event.which,
-    //         pageX: event.pageX,
-    //         pageY: event.pageY,
-    //         clientX: event.clientX,
-    //         clientY: event.clientY,
-    //         screenX: event.screenX,
-    //         screenY: event.screenY,
-    //     },
-    // });
 };
+/**
+ * 图片裁剪
+ * @param image base64
+ * @param opts {x,y,w,h}
+ * @return Promise<base64>
+*/
+function crop(image, opts) {
+    return new Promise((resolve, reject) => {
+        const x = opts.x, y = opts.y;
+        const w = opts.w, h = opts.h;
+        const format = opts.format || 'png';
+        const canvas = document.createElement('canvas');
+        canvas.width = w
+        canvas.height = h
+        document.body.append(canvas);
+
+        const img = new Image()
+        img.onload = () => {
+            const context = canvas.getContext('2d')
+            context.drawImage(img,
+                x, y,
+                w, h,
+                0, 0,
+                w, h
+            )
+            const cropped = canvas.toDataURL(`image/${format}`)
+            canvas.remove();
+            resolve(cropped)
+        }
+        img.src = image
+    });
+
+}
+
+/**
+ * 将图片复制进用户粘贴板
+ * @param image base64
+*/
+async function copy_img_to_clipboard(image) {
+    const storage_data = await chrome.storage.sync.get(["model"]);
+    const model = storage_data.model || "file";;
+    // 复制都用户粘贴板中
+    if (model === 'base64') {
+        navigator.clipboard.writeText(image);
+    } else if (model === 'file') {
+        const [header, base64] = image.split(',')
+        const [_, type] = /data:(.*);base64/.exec(header)
+        const binary = atob(base64)
+        const array = Array.from({ length: binary.length })
+            .map((_, index) => binary.charCodeAt(index))
+        navigator.clipboard.write([
+            new ClipboardItem({
+                // 这里只能写入 png
+                'image/png': new Blob([new Uint8Array(array)], { type: 'image/png' })
+            })
+        ])
+    }
+}
 
 /**
  * 创建一个dom遮罩层
 */
 function createMask() {
     const mask = document.createElement("div");
-    mask.className = "_qnn-dom-mask_";
+    // 必须让鼠标指针能够穿透 mask 元素
+    mask.style.pointerEvents = "none";
     mask.style.background = "rgb(3, 132, 253, 0.22)";
     mask.style.position = "fixed";
+    mask.style.zIndex = 9999999999999;
     mask.style.display = "none";
-    mask.style.pointerEvents = "none";
     document.body.appendChild(mask);
     return mask;
 }
 
 /**
- * 监听 service-worker.js 发来的消息
+ * 监听 service-worker、setting/index.js 发来的消息
 */
-chrome.runtime.onMessage.addListener((req, sender, res) => {
+chrome.runtime.onMessage.addListener(async (req, sender, res) => {
     if (req.type === 'select-dom') {
-        // 返回出去 dom 的坐标和尺寸信息 
-        res({ x: 0, y: 0, h: 0, w: 0 })
+        // 启动选择dom截图
+        isSelectModel = true;
+    }
+    if (req.type === 'area-screenshot') {
+        // 启动选择区域截图
+        area_screenshot();
     }
     return true
 })
 
+/**
+ * 进行区域截图
+*/
+async function area_screenshot() {
+    // 返回整个屏幕截图
+    const screen_image = await chrome.runtime.sendMessage({ type: "screenshot" });
+    if (!screen_image.image) {
+        alert(chrome.i18n.getMessage('errorMsg'))
+        return;
+    }
+    const image_container = document.createElement('div');
+    image_container.style.width = "100vw";
+    image_container.style.height = "100vh";
+    image_container.style.position = "fixed";
+    image_container.style.left = "0px";
+    image_container.style.top = "0px";
+    image_container.style.zIndex = 9999999999999;
+    document.body.append(image_container);
+    const image_dom = document.createElement('img');
+    image_dom.src = screen_image.image;
+    image_dom.style.maxWidth = "100%";
+    image_container.append(image_dom);
 
-const text = chrome.i18n.getMessage("test", "小明");
-console.log('text', text)
-// const data = await chrome.storage.sync.get(["wrap_path", "submit_path", "is_open", "code_type", "model", "click_path"]);
-
+    const infos = {};
+    const destroy_ins = new Cropper(image_dom, {
+        autoCrop: true,
+        autoCropArea: 0.001,
+        zoomOnTouch: false,
+        zoomOnWheel: false,
+        movable: false,
+        rotatable: false,
+        zoomable: false,
+        crop(event) {
+            infos.x = event.detail.x, infos.y = event.detail.y,
+                infos.w = event.detail.width, infos.h = event.detail.height;
+        },
+        async cropend() {
+            const crop_image = await crop(screen_image.image, infos);
+            copy_img_to_clipboard(crop_image);
+            // 别忘记注销掉刚刚我们产生的对象
+            destroy_ins.destroy();
+            image_container.remove();
+        },
+    });
+}

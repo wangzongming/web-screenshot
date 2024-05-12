@@ -1,63 +1,61 @@
 body {
-    width: 350px;
+    width: 320px;
     font-family: 苹方, 黑体;
     font-size: 14px;
     color: #777;
     margin: 0px;
 }
 
-.title {
-    text-align: center;
-    background-color: #1d7dfa;
-    color: #fff;
-    padding: 6px 0px;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 16px;
-}
-.content{
+.content {
     padding: 12px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
-.formItem {
+.form-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 12px;
 }
- 
-.formItem>input, .formItem>select, .formItem>select>option, .formItem>textarea {
-    line-height: 32px;
-    height: 32px;
-    padding: 0px 12px;
+
+.form-item>label{
+    text-align: right;
+    width: 60px;
+    padding-right: 12px; 
     font-size: 16px;
-    box-sizing: border-box;
+}
+.form-item>select,
+.form-item>select>option {  
+    background: transparent; 
+    flex: 1;
+    padding: 5px;
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 200px; 
-}
-.formItem>textarea {
-    height: 100px;
-}
-.desc{
-    font-size: 12px;
-    color: red;
-    background-color: #efefef;
-    padding: 6px;
+    height: 34px;
+    -webkit-appearance: none;
+    outline: none; 
+    border-radius: 3px;
 }
 
 .btns {
-    text-align: right;
     padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .btns button {
     border: 1px solid #1d7dfa;
     background: #1d7dfa;
     color: #fff;
-    padding: 6px 12px;
+    box-shadow: 0px 0px 3px #ccc;
+    padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
+    width: calc(50% - 12px);
+    transition: 0.3s;
+}
+
+.btns button:hover {
+    box-shadow: 2px 2px 5px #9e9d9d;
+    transition: 0.3s;
 }

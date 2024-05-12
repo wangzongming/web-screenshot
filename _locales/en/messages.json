@@ -1,18 +1,29 @@
 {
 	"pluginName": {
-		"message": "网页截图"
+		"message": "web screenshot"
 	},
 	"pluginDesc": {
 		"message": "Take a screenshot of the DOM or any area of the page"
 	},
-	"test": {
-		"message": "Hello $name$",
-		"description": "占位符测试",
-		"placeholders": {
-			"name": {
-				"content": "$1",
-				"example": "小明111"
-			}
-		}
+	"domScreenshotDesc":{ 
+		"message": "DOM screenshot"
+	},
+	"areaScreenshotDesc":{ 
+		"message": "area screenshot"
+	},
+	"modelLabel":{ 
+		"message": "Save As"
+	},
+	"modelOptionFile":{ 
+		"message": "File"
+	},
+	"saveSuccessMsg":{ 
+		"message": "Save Success"
+	},
+	"msgTitle":{ 
+		"message": "Message"
+	},
+	"errorMsg":{
+		"message": "Screenshot failed! Please refresh the page or restart the browser."
 	}
 }

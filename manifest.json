@@ -27,7 +27,11 @@
     },
     "content_scripts": [
         {
+            "css": [
+                "./libs/cropper.min.css"
+            ],
             "js": [
+                "./libs/cropper.min.js",
                 "content.js"
             ],
             "matches": [
@@ -36,17 +40,24 @@
         }
     ],
     "commands": {
-        "take-screenshot": {
-            "description": "Take Screenshot",
+        "domScreenshot": {
+            "description": "__MSG_domScreenshotDesc__",
             "suggested_key": {
-                "default": "Alt+D"
+                "default": "Alt+Shift+D"
+            }
+        }, 
+        "areaScreenshot": {
+            "description": "__MSG_areaScreenshotDesc__",
+            "suggested_key": {
+                "default": "Alt+Shift+Q"
             }
         }
     },
     "permissions": [
         "storage",
         "activeTab",
-        "scripting"
+        "scripting",
+        "notifications"
     ],
     "host_permissions": [
         "<all_urls>"

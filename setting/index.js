@@ -1,71 +1,58 @@
-
-main();
-
-var is_open = false;
+window.onload = function () {
+	main();
+}
 async function main() {
-	const close_INPUT = document.getElementById('close');
-	const open_INPUT = document.getElementById('open');
-	const wrapPath_INPUT = document.getElementById('wrapPath');
-	const clickPath_INPUT = document.getElementById('clickPath');
-	const submit_path_INPUT = document.getElementById('submit_path');
-	const codeType_INPUT = document.getElementById('codeType');
-	const model_INPUT = document.getElementById('model');
-	const submit_BUTTON = document.getElementById('submit');
-	
-	
-	const data = await chrome.storage.sync.get(["wrap_path", "is_open", "code_type", "submit_path", "model", "click_path"]);
-	wrapPath_INPUT.value = data.wrap_path || "#input";
-	submit_path_INPUT.value = data.submit_path || "#submit";
-	codeType_INPUT.value = data.code_type || "9004";
-	model_INPUT.value = data.model || "default";
-	clickPath_INPUT.value = data.click_path || ""; 
-	is_open = data.is_open;
-	
-	if (data.is_open) {
-		close_INPUT.checked = false;
-		open_INPUT.checked = true;
-	} else {
-		open_INPUT.checked = false;
-		close_INPUT.checked = true;
-	} 
+	const dom_screenshot = document.getElementById('dom-screenshot');
+	const area_screenshot = document.getElementById('area-screenshot');
 
-	close_INPUT.addEventListener('click', () => {
-		open_INPUT.checked = false;
-		is_open = false;
-	});
+	// 界面文字设置
+	document.getElementById('model-label').innerText = chrome.i18n.getMessage('modelLabel');
+	document.getElementById('model-option-file').innerText = chrome.i18n.getMessage('modelOptionFile');
+	dom_screenshot.innerHTML = chrome.i18n.getMessage('domScreenshotDesc')+'(Alt+Shift+D)';
+	area_screenshot.innerHTML = chrome.i18n.getMessage('areaScreenshotDesc')+'(Alt+Shift+Q)';
 
-	open_INPUT.addEventListener('click', () => {
-		close_INPUT.checked = false;
-		is_open = true;
-	});
+	// 存储用户设置和回显设置逻辑
+	const model_input = document.getElementById('model');
 
-	submit_BUTTON.addEventListener('click', async () => {
-		const wrapPath = wrapPath_INPUT.value;
-		const submit_path = submit_path_INPUT.value;
-		const codeType = codeType_INPUT.value;
-		const model = model_INPUT.value;
-		const click_path = clickPath_INPUT.value;
-		// console.log(wrapPath);
+	// 回显设置过的数据
+	const storage_data = await chrome.storage.sync.get(["model"]);
+	model_input.value = storage_data.model || "file";
 
+	// 保存设置
+	model_input.addEventListener('change', async (event) => {
+		const value = event.target.value;
+		console.log("value: ", value)
 		// 将设置存入本地
-		await chrome.storage.sync.set({
-			wrap_path: wrapPath,
-			submit_path: submit_path,
-			is_open: is_open, 
-			code_type: codeType,
-			model: model,
-			click_path: click_path
-		});
+		await chrome.storage.sync.set({ model: value });
 
 		// 弹出通知
 		chrome.notifications.create(null, {
 			type: 'basic',
-			iconUrl: '../logo.png',
-			title: '提示',
-			message: '保存成功'
-		}, () => {
-			// 关闭面板 
-			window.close();
+			iconUrl: '../icons/48.png',
+			title: chrome.i18n.getMessage('msgTitle'),
+			message: chrome.i18n.getMessage('saveSuccessMsg') + `: ${value}`,
+
 		})
+	});
+
+	// dom 截图
+	dom_screenshot.addEventListener('click', () => {
+		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+			// 通知 content.js 提供选择 dom 的功能
+			chrome.tabs.sendMessage(tabs[0].id, { type: 'select-dom' });
+		});
+
+		// 关闭面板 
+		window.close();
+	});
+
+	// 区域截图
+	area_screenshot.addEventListener('click', () => {
+		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+			// 通知 content.js 区域截图
+			chrome.tabs.sendMessage(tabs[0].id, { type: 'area-screenshot' });
+		});
+		// 关闭面板 
+		window.close();
 	});
 }
