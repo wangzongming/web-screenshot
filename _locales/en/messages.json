@@ -6,10 +6,10 @@
 		"message": "Take a screenshot of the DOM or any area of the page"
 	},
 	"domScreenshotDesc":{ 
-		"message": "DOM screenshot"
+		"message": "DOM"
 	},
 	"areaScreenshotDesc":{ 
-		"message": "area screenshot"
+		"message": "area"
 	},
 	"modelLabel":{ 
 		"message": "Save As"

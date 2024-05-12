@@ -39,6 +39,11 @@ async function listenerMouseup(event) {
         window.globalClickMouseDowned = false;
         const now = new Date().getTime();
         if (now - window.globalClickDownTime < 300) {
+            
+            // 关闭 选择模式
+            isSelectModel = false;
+            maskDom.style.display = "none";
+            
             const infos = {
                 x: parseInt(maskDom.style.left),
                 y: parseInt(maskDom.style.top),
@@ -55,9 +60,6 @@ async function listenerMouseup(event) {
             const crop_image = await crop(screen_image.image, infos);
             copy_img_to_clipboard(crop_image);
 
-            // 关闭 选择模式
-            isSelectModel = false;
-            maskDom.style.display = "none";
         }
     }
 };

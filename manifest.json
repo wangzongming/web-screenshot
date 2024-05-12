@@ -55,8 +55,7 @@
     },
     "permissions": [
         "storage",
-        "activeTab",
-        "scripting",
+        "activeTab", 
         "notifications"
     ],
     "host_permissions": [
