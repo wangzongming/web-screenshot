@@ -24,7 +24,7 @@ Other to be tested ...
 </center>
 
 ## Video
-![7.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9cb1dfc603e84af9b90c80b2cb24c56a~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1103&h=881&s=2541600&e=gif&f=402&b=fdfcfc)
+![7.gif](7.gif)
 
 ## Install
 1、 下载 ./web-screenshot.crx 文件
