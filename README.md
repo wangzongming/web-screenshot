@@ -37,3 +37,6 @@ Other to be tested ...
 
 2、The browser will automatically prompt you to install, if there is no prompt, drag yourself into the browser
 
+## 微信交流群 
+
+<img src="http://img.xiaomingio.top/i/2024/05/13/6641f99345733.jpg"/>
