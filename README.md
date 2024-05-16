@@ -1,4 +1,4 @@
-# screenshot-dom
+# web-screenshot
 一个浏览器扩展，可以选择页面中某个 DOM 元素进行截图，也可以框选某个区域进行截图。喜欢的话给我个 star 吧~ 
 
 A browser extension that can select a DOM element in the page to take a screenshot, and can also select an area to take a screenshot.
