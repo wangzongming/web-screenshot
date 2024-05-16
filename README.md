@@ -1,21 +1,25 @@
 # web-screenshot
 一个浏览器扩展，可以选择页面中某个 DOM 元素进行截图，也可以框选某个区域进行截图。喜欢的话给我个 star 吧~ 
 
+软件主页：<a href="https://xiaomingio.top/web-screenshot/">点击跳转</a> 
+
+Chrome 商店安装：<a href="https://chromewebstore.google.com/detail/web-screenshot/pmjofmnlelohbkcclejgenpfgpfchbjo?hl=zh-CN&authuser=0">点击跳转</a>
+
+
 A browser extension that can select a DOM element in the page to take a screenshot, and can also select an area to take a screenshot.
 Give me a star if you like
 
+Software Homepage: <a href="https://xiaomingio.top/web-screenshot/">点击跳转</a> 
+
+Chrome Store：<a href="https://chromewebstore.google.com/detail/web-screenshot/pmjofmnlelohbkcclejgenpfgpfchbjo?hl=zh-CN&authuser=0">点击跳转</a>
+
+
 ## 浏览器支持度 | Browser support
 
-| name | support |
-| --- | --- |
-| Chrome | √ |
-| 360急速浏览器 | √ |
-| Firefox | X |
-| Edge | X |
+支持所有常见的基于 Chromium 的现代浏览器： Chrome、Edge、360急速浏览器、搜狗、QQ浏览器... 
 
-其他待测试... 
+Support for all common Chromium-based modern browsers: Chrome, Edge, 360 Quick browser, Sogou, QQ browser...
 
-Other to be tested ...
  
 ## Screenshots 
 
@@ -26,18 +30,14 @@ Other to be tested ...
 ## Video
 ![7.gif](7.gif)
 
-## Install
-1、 下载 ./web-screenshot.crx 文件
+## 安装 | Install
+推荐使用 Chrome 应用商店安装，如果你无法使用Chrome商店，则使用软件主页中的方法
+<a href="https://xiaomingio.top/web-screenshot/">软件主页</a>
 
-2、 浏览器会自动提示安装，如果没有提示自行拖拽进浏览器中
+The Chrome App Store installation is recommended, or if you can't use the Chrome Store, use the method on the software home page
+<a href="https://xiaomingio.top/web-screenshot/">Software homepage</a>
 
-
-
-1、 Download the./web-screenshot.crx file
-
-2、The browser will automatically prompt you to install, if there is no prompt, drag yourself into the browser
-
-
+ 
 
 ## 微信交流群 | Wechat communication group 
 

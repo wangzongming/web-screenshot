@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-    content="viewport-fit=cover,width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+        content="viewport-fit=cover,width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <title>web-screenshot</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 
@@ -53,7 +53,7 @@
         }
 
         .description {
-            text-align: center; 
+            text-align: center;
             color: #5a5959;
             padding: 24px 12px;
             box-sizing: border-box;
@@ -71,6 +71,13 @@
             padding: 6px 12px;
             box-sizing: border-box;
         }
+
+        .img {
+            box-shadow: 0px 0px 5px #ccc;
+            max-width: 90%;
+            display: block;
+            margin: 0px auto;
+        }
     </style>
 </head>
 
@@ -86,53 +93,57 @@
 
 
     <center>
-        <img style="box-shadow: 0px 0px 5px #ccc;max-width: 90vw;display: block;" src="./7.gif" />
+        <img class="img" src="./7.gif" />
     </center>
 
     <h1 class="title">浏览器支持度</h1>
     <div class="description">
-        <table class="table">
-            <tr>
-                <th>浏览器</th>
-                <th>是否支持</th>
-            </tr>
-            <tbody>
-                <tr>
-                    <td>Chrome</td>
-                    <td>√</td>
-                </tr>
-                <tr>
-                    <td>360急速浏览器</td>
-                    <td>√</td>
-                </tr>
-                <tr>
-                    <td>Firefox</td>
-                    <td>X</td>
-                </tr>
-                <tr>
-                    <td>Edge</td>
-                    <td>X</td>
-                </tr>
-
-            </tbody>
-        </table>
+        支持所有常见的基于 Chromium 的现代浏览器： Chrome、Edge、360急速浏览器、搜狗、QQ浏览器... 
     </div>
 
 
     <h1 class="title">安装</h1>
     <div class="description">
         <div style="text-align: left; max-width: 800px;margin: 0 auto;">
-            <div>1. <a href="./web-screenshot.crx">点击下载</a></div>
-            <div>2. 浏览器会自动提示安装，如果没有提示自行拖拽进浏览器中（部分浏览器要拖拽进扩展程序页面才会提示安装）</div>
+            <b><a
+                href="https://chromewebstore.google.com/detail/web-screenshot/pmjofmnlelohbkcclejgenpfgpfchbjo?hl=zh-CN&authuser=0">软件主页 - Chrome 应用商店</a></b>
+            <br />
+            <br />
+            <b>推荐使用 Chrome 应用商店安装，如果你无法使用 Chrome 商店，则使用下面手动安装。</b>
+            <br />
+            <br />
+            <div>1. <a href="./web-screenshot.crx">点击下载程序安装包</a></div>
+            <div>2. 打开扩展程序管理页面</div>
+            <div style="padding: 12px 0px;text-align: center;">
+                <img class="img" src="./9.jpg" />
+            </div>
+            <div>3. 将下载的程序直接拖拽到扩展程序管理页面中（浏览器会自动安装）</div>
+            <div>4. 将插件固定到顶部，方便不使用快捷键时点击图标进行截图</div>
+            <div style="padding: 12px 0px;text-align: center;">
+                <img class="img" src="./8.jpg" />
+            </div>
+            <div>5. 重启浏览器</div>
         </div>
     </div>
 
-    
+    <h1 class="title">使用方法</h1>
+    <div class="description">
+        <b>点击扩展图标后可以选择截图方式或者对软件进行配置</b>
+        <br />
+        <br />
+        <b>也可以直接使用快捷键</b>
+        <div>1. Alt+Shift+D 选择DOM截图</div>
+        <div>2. Alt+Shift+Q 任意区域截图</div>
+    </div>
+
+
     <h1 class="title">软件仓库</h1>
     <div class="description">
         <a href="https://github.com/wangzongming/web-screenshot">点击跳转 - Github</a>
         <br>
-        <a href="https://github.com/wangzongming/web-screenshot">点击跳转 - Chrome 商店</a>
+        <a
+            href="https://chromewebstore.google.com/detail/web-screenshot/pmjofmnlelohbkcclejgenpfgpfchbjo?hl=zh-CN&authuser=0">点击跳转
+            - Chrome 商店</a>
     </div>
 
     <h1 class="title">微信交流群</h1>
