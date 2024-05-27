@@ -39,9 +39,10 @@ The Chrome App Store installation is recommended, or if you can't use the Chrome
 
  
 
-## 微信交流群 | Wechat communication group 
 
-<img src="https://xiaomingio.top/img/i/2024/05/13/6641f99345733.jpg"/>
+## 交流群 
+
+QQ 交流群: 854445223
 
 ## 文章 | Article 
 掘金：https://juejin.cn/spost/7369270223868674111
